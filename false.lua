@@ -45,7 +45,7 @@ for i, v in pairs(workspace:GetDescendants()) do
     end
 end
 
-print("pro")
+print("pro gaming")
 
 shared.MoneyFarm = false -- true to run
 
