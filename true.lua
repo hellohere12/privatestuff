@@ -1,12 +1,3 @@
-game.StarterGui:SetCore("SendNotification", {
-    Title = "Farm"; 
-    Text = "Started collecting."; 
-    Icon = ""; 
-    Duration = 5;
-    Callback = bindableFunction;
-    Button1 = "Ok.";
-})
-
 repeat
     wait()
 until game:IsLoaded()
