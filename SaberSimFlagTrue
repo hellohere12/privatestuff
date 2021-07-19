@@ -1,0 +1,40 @@
+_G.AutoFlag = true
+		while _G.AutoFlag do
+			local CurrentX = game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X
+			local CurrentY = game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y
+			local CurrentZ = game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z
+			for i, v in pairs(workspace.Flags:GetChildren()) do
+				game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.Base.CFrame
+				if v.OwnerValue.Value ~= game:GetService("Players").LocalPlayer.Name then
+					wait(15 + v.CapValue.Value)
+				else
+					wait(12 - v.CapValue.Value)
+				end
+				if not _G.AutoFlag then
+					return
+				end
+			end
+			TP(CurrentX, CurrentY, CurrentZ)
+			wait()
+		end
+	else
+		_G.AutoFlag = false
+	end
+end)
+
+local FlagsDropDown;
+local Drops = {"Teleport To Flag"}
+for i, v in pairs(workspace.Flags:GetChildren()) do
+	table.insert(Drops, "Flag" .. tostring(i))
+end
+FlagsDropDown = Flags:AddDropdown(Drops, function(v)
+	if v == "Teleport To Flag" then
+		return
+	end
+	for x, y in pairs(workspace.Flags:GetChildren()) do
+		if tostring(x) == v:gsub("Flag", "") then
+			local BasePos = y.Base.Position
+			TP(BasePos.X, BasePos.Y, BasePos.Z)
+		end
+	end
+end)
