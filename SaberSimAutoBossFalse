@@ -1,0 +1,38 @@
+_G.AutoBoss = false
+		if game:GetService("Workspace"):FindFirstChild("Boss") then
+			local Boss = game:GetService("Workspace").Boss.HumanoidRootPart.Position
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Boss.X, 186.29756164551, Boss.Z)
+		else
+			ShowMSG2("Auto Boss - Boss isn't spawned!", 3)
+		end
+		while _G.AutoBoss do
+			if game:GetService("Workspace"):FindFirstChild("Boss") and not _G.BossAlive then
+				local Boss = game:GetService("Workspace").Boss.HumanoidRootPart.Position
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Boss.X, 186.29756164551, Boss.Z)
+				_G.BossAlive = true
+			elseif game:GetService("Workspace"):FindFirstChild("Boss") and _G.BossAlive then
+				local Boss = game:GetService("Workspace").Boss.HumanoidRootPart.Position
+				if _G.IsVIP then
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Boss.X, 186.29756164551, Boss.Z)
+				else
+					game.Players.LocalPlayer.Character.Humanoid:MoveTo(Vector3.new(Boss.X, 186.29756164551, Boss.Z))
+				end
+			elseif not game:GetService("Workspace"):FindFirstChild("Boss") and _G.BossAlive then
+				if _G.IsVIP then
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(511.50579833984, 184.78834533691, 50.392555236816)
+				else
+					game.Players.LocalPlayer.Character.Humanoid:MoveTo(Vector3.new(511.50579833984, 184.78834533691, 50.392555236816))
+				end
+				ShowMSG2("Auto Boss - Boss has died!", 3)
+				_G.BossAlive = false
+			end
+			if _G.IsVIP then
+				wait()
+			else
+				wait(1)
+			end
+		end
+
+		ShowMSG2("Auto Boss - You should turn on Auto Farm and Auto Swing\nbefore using Auto Boss!", 3)
+		_G.AutoBoss = false
+    ShowMSG2("Auto Boss has turned off!", 3)
