@@ -48,38 +48,3 @@ end
 print("pro gaming")
 
 shared.MoneyFarm = false -- true to run
-
-while shared.MoneyFarm do
-    wait()
-    local Target = gettarget()
-    repeat
-        wait()
-        pcall(
-            function()
-                local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:wait()
-                local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
-                local Combat = LocalPlayer.Backpack:FindFirstChild("Combat") or Character:FindFirstChild("Combat")
-                if not Combat then
-                    Character:FindFirstChild("Humanoid").Health = 0
-                    return
-                end
-                HumanoidRootPart.CFrame = Target.Head.CFrame * CFrame.new(0, -2.5, 3)
-                Combat.Parent = Character
-                Combat:Activate()
-            end
-        )
-    until not Target or Target.Humanoid.Health < 0
-    for i, v in pairs(game:GetService("Workspace").Ignored.Drop:GetDescendants()) do
-        if v:IsA("ClickDetector") and v.Parent and v.Parent.Name:find("Money") then
-            local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:wait()
-            local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
-            if (v.Parent.Position - HumanoidRootPart.Position).magnitude <= 18 then
-                repeat
-                    wait()
-                    fireclickdetector(v)
-                until not v or not v.Parent.Parent
-            end
-        end
-    end
-    wait(0)
-end
